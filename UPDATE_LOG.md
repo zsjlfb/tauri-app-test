@@ -1,6 +1,6 @@
 # Updater Log
 
-## v1.1.7
+## v1.1.8
 
 test
 
