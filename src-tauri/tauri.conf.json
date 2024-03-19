@@ -33,7 +33,7 @@
     "updater": {
       "active": true,
       "endpoints": [
-        "https://releases.myapp.com/{{target}}/{{arch}}/{{current_version}}"
+        "https://github.com/ZSJLFB/tauri-app-test/releases/download/v1.0.1/latest.json"
       ],
       "dialog": true,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEUxQjhGMzQyOTQ1NjhBQkQKUldTOWlsYVVRdk80NGMvOXV0TVJjZ1djNkhEaG93dXNzb2ZEMThOeHpMWmlhN2xpRG56UXhVdUcK",
