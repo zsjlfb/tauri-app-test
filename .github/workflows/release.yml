@@ -21,6 +21,12 @@ jobs:
           echo "using version tag ${GITHUB_REF:10}"
           echo ::set-output name=version::"${GITHUB_REF:10}"
 
+      - name: Get name from package.json
+        id: pkg
+        run: |
+          echo "::set-output name=package_name::$(node -p "require('./package.json').name")"
+        shell: bash
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -28,7 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: '${{ steps.get_version.outputs.VERSION }}'
-          release_name: '${{ steps.get_version.outputs }} ${{ steps.get_version.outputs.VERSION }}'
+          release_name: '${{ steps.pkg.outputs.package_name }} ${{ steps.get_version.outputs.VERSION }}'
           body: 'See the assets to download this version and install.'
 
   build-tauri:
