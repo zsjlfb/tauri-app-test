@@ -1,6 +1,6 @@
 # Updater Log
 
-## v1.1.10
+## v1.1.11
 
 test
 
