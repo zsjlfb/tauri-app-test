@@ -1,10 +1,10 @@
 # Updater Log
 
-## v1.0.2
+## v1.1.2
 
 - feat: xxx
 - fix: xxx
 
-## v1.0.1
+## v1.1.1
 
 test
