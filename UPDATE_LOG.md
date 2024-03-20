@@ -1,6 +1,6 @@
 # Updater Log
 
-## v1.1.27
+## v1.1.28
 
 test
 
