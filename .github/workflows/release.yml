@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: Output RELEASE_UPLOAD_ID
         run: |
-         echo ${{ steps.pkg.outputs.package_name }}
+         echo ${{ needs.pkg.outputs.package_name }}
 
       - name: Checkout repository
         uses: actions/checkout@v3
