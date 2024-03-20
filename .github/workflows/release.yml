@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
-      PACKAGE_NAME: ${{ steps.pkg.outputs.package_name }}
-      VERSION: ${{ steps.get_version.outputs.version }}
+      PACKAGE_NAME: ${{ env.package_name }}
+      VERSION: ${{ env.version }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,12 +21,12 @@ jobs:
         shell: bash
         run: |
           echo "using version tag ${GITHUB_REF:10}"
-          echo ::set-output name=version::"${GITHUB_REF:10}"
+          echo "version="${GITHUB_REF:10}"" >> $GITHUB_ENV
 
       - name: Get name from package.json
         id: pkg
         run: |
-          echo "::set-output name=package_name::$(node -p "require('./package.json').name")"
+          echo "package_name=$(node -p "require('./package.json').name")" >> $GITHUB_ENV
         shell: bash
 
       - name: Create Release
@@ -35,8 +35,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: '${{ steps.get_version.outputs.version }}'
-          release_name: '${{ steps.pkg.outputs.package_name }} ${{ steps.get_version.outputs.version }}'
+          tag_name: '${{ env.version }}'
+          release_name: '${{ env.package_name }} ${{ env.version }}'
           body: 'See the assets to download this version and install.'
           draft: true
           prerelease: false
@@ -92,7 +92,7 @@ jobs:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
         with:
-          #          releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
+          releaseId: ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
           tagName: '${{ needs.create-release.outputs.VERSION }}'
           releaseName: '${{ needs.create-release.outputs.PACKAGE_NAME }} ${{ needs.create-release.outputs.VERSION }}'
           releaseBody: 'See the assets to download this version and install.'
