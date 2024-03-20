@@ -41,18 +41,18 @@ jobs:
           draft: true
           prerelease: false
 
-#  build-tauri:
-#    needs: create-release
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        #        platform: [macos-latest, ubuntu-latest, windows-latest]
-#        platform: [macos-latest]
-#    runs-on: ${{ matrix.platform }}
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
+  build-tauri:
+    needs: create-release
+    strategy:
+      fail-fast: false
+      matrix:
+        #        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [macos-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
 #      - name: Install Rust stable
 #        uses: dtolnay/rust-toolchain@stable
 #
