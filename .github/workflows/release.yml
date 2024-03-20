@@ -79,14 +79,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
 
-#      # Install wasm-pack
-#      - uses: jetli/wasm-pack-action@v0.3.0
-#        with:
-#          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
-#          version: v0.9.1
-#
-#      - name: Install rsw
-#        run: cargo install rsw
+      # Install wasm-pack
+      - uses: jetli/wasm-pack-action@v0.3.0
+        with:
+          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
+          version: v0.9.1
+
+      - name: Install rsw
+        run: cargo install rsw
 
       - name: Install app dependencies and build it
         uses: tauri-apps/tauri-action@v0
