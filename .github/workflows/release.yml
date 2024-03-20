@@ -47,14 +47,9 @@ jobs:
       fail-fast: false
       matrix:
         #        platform: [macos-latest, ubuntu-latest, windows-latest]
-        platform: [macos-latest]
+        platform: [macos-latest, ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-      - name: Output create-release
-        run: |
-          echo ${{ needs.create-release.outputs.PACKAGE_NAME }}
-          echo ${{ needs.create-release.outputs.VERSION }}
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
