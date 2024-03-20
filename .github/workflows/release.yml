@@ -120,11 +120,9 @@ jobs:
           pnpm -v
         shell: bash
 
-#      - name: Install frontend dependencies
-#        run: pnpm install # Change this to npm, yarn or pnpm.
-
       - name: Run updater
         uses: actions/checkout@v2
+      - run: pnpm Install
       - run: pnpm updater
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
