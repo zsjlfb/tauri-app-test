@@ -69,24 +69,27 @@ jobs:
           node-version: 'lts/*'
           cache: 'pnpm' # Set this to npm, yarn or pnpm.
 
+      - name: Install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: pnpm install # Change this to npm, yarn or pnpm.
+
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
 
-      # Install wasm-pack
-      - uses: jetli/wasm-pack-action@v0.3.0
-        with:
-          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
-          version: v0.9.1
-
-      - name: Install rsw
-        run: cargo install rsw
+#      # Install wasm-pack
+#      - uses: jetli/wasm-pack-action@v0.3.0
+#        with:
+#          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
+#          version: v0.9.1
+#
+#      - name: Install rsw
+#        run: cargo install rsw
 
       - name: Install app dependencies and build it
-        run: pnpm install && pnpm build
-      - uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
