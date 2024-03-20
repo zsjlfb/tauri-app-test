@@ -76,6 +76,16 @@ jobs:
       - name: Install rsw
         run: cargo install rsw
 
+      - name: setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm' # Set this to npm, yarn or pnpm.
+
       - name: Get pnpm cache directory path
         id: pnpm-cache-dir-path
         run: echo "::set-output name=dir::$(pnpm config get cacheFolder)"
