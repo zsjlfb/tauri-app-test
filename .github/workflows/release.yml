@@ -48,6 +48,9 @@ jobs:
         platform: [macos-latest]
     runs-on: ${{ matrix.platform }}
     steps:
+      - name: Output RELEASE_UPLOAD_ID
+        run: echo ${{ needs.create-release.outputs.RELEASE_UPLOAD_ID }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
