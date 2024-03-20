@@ -47,7 +47,7 @@ jobs:
       fail-fast: false
       matrix:
         #        platform: [macos-latest, ubuntu-latest, windows-latest]
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [macos-latest]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
@@ -125,7 +125,7 @@ jobs:
       - run: pnpm install
       - run: pnpm updater
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.idea }}
 
       - name: Deploy install.json
         uses: peaceiris/actions-gh-pages@v3
