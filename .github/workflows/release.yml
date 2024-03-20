@@ -29,14 +29,14 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v2
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: '${{ steps.get_version.outputs.VERSION }}'
-          releaseName: '${{ steps.pkg.outputs.package_name }} ${{ steps.get_version.outputs.VERSION }}'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
+          tag_name: '${{ steps.get_version.outputs.VERSION }}'
+          release_name: '${{ steps.pkg.outputs.package_name }} ${{ steps.get_version.outputs.VERSION }}'
+          body: 'See the assets to download this version and install.'
+          draft: true
           prerelease: false
 
   build-tauri:
