@@ -51,7 +51,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 18
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v1
+        with:
+          node-version: 8
 
       - name: Install Rust stable
         uses: actions-rs/toolchain@v1
@@ -68,13 +73,13 @@ jobs:
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
 
       # Install wasm-pack
-      - uses: jetli/wasm-pack-action@v0.3.0
-        with:
-          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
-          version: v0.9.1
-
-      - name: Install rsw
-        run: cargo install rsw
+#      - uses: jetli/wasm-pack-action@v0.3.0
+#        with:
+#          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
+#          version: v0.9.1
+#
+#      - name: Install rsw
+#        run: cargo install rsw
 
 #      - name: Get pnpm cache directory path
 #        id: pnpm-cache-dir-path
