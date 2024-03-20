@@ -46,25 +46,20 @@ jobs:
         platform: [macos-latest]
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v1
-        with:
-          node-version: 8
-
       - name: Install Rust stable
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+        uses: dtolnay/rust-toolchain@stable
 
       # Rust cache
-      - uses: Swatinem/rust-cache@v1
+      - name: Rust cache
+        uses: Swatinem/rust-cache@v2
 
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
@@ -94,9 +89,16 @@ jobs:
 #          restore-keys: |
 #            ${{ runner.os }}-pnpm-
 
+      - name: Install pnpm
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: npm install -g pnpm # Change this to npm, yarn or pnpm.
+
+      - name: Install frontend dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: pnpm install # Change this to npm, yarn or pnpm.
+
       - name: Install app dependencies and build it
-        run: pnpm install
-      - uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
