@@ -78,9 +78,9 @@ jobs:
 
       - name: Echo node|npm|pnpm version
         run: |
-          echo node -v
-          echo npm -v
-          echo pnpm -v
+          echo "node -v"
+          echo "npm -v"
+          echo "pnpm -v"
         shell: bash
 
       - name: Install frontend dependencies
@@ -119,9 +119,9 @@ jobs:
 
       - name: Echo node|npm|pnpm version
         run: |
-          echo node -v
-          echo npm -v
-          echo pnpm -v
+          echo "node -v"
+          echo "npm -v"
+          echo "pnpm -v"
         shell: bash
 
       - name: Install frontend dependencies
