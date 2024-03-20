@@ -53,11 +53,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
 
@@ -71,31 +66,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
 
-      # Install wasm-pack
-      #      - uses: jetli/wasm-pack-action@v0.3.0
-      #        with:
-      #          # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
-      #          version: v0.9.1
-      #
-      #      - name: Install rsw
-      #        run: cargo install rsw
-
-      #      - name: Get pnpm cache directory path
-      #        id: pnpm-cache-dir-path
-      #        run: echo "::set-output name=dir::$(pnpm config get cacheFolder)"
-      #
-      #      - name: pnpm cache
-      #        uses: actions/cache@v2
-      #        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
-      #        with:
-      #          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
-      #          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm.lock') }}
-      #          restore-keys: |
-      #            ${{ runner.os }}-pnpm-
-
-      - name: Install pnpm
-        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: npm install -g pnpm # Change this to npm, yarn or pnpm.
+      - name: setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Sync node version and setup cache
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm' # Set this to npm, yarn or pnpm.
 
       - name: Install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
@@ -121,13 +100,18 @@ jobs:
     needs: [create-release, build-tauri]
 
     steps:
-      - name: Setup node
+      - name: setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 'lts/*'
+          cache: 'pnpm' # Set this to npm, yarn or pnpm.
 
-      - uses: actions/checkout@v2
-      - run: npm install -g pnpm
+      - name: Run updater
+        uses: actions/checkout@v2
       - run: pnpm updater
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
