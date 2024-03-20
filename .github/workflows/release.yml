@@ -47,7 +47,7 @@ jobs:
       fail-fast: false
       matrix:
         #        platform: [macos-latest, ubuntu-latest, windows-latest]
-        platform: [macos-latest, ubuntu-latest, windows-latest]
+        platform: [macos-latest]
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
@@ -121,8 +121,13 @@ jobs:
     needs: [create-release, build-tauri]
 
     steps:
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - uses: actions/checkout@v2
-      - run: pnpm
+      - run: npm install -g pnpm
       - run: pnpm updater
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
