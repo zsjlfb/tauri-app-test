@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       RELEASE_UPLOAD_ID: ${{ steps.create_release.outputs.id }}
+      PACKAGE_NAME: ${{ steps.pkg.outputs.package_name }}
+      VERSION: ${{ steps.get_version.outputs.version }}
 
     steps:
       - uses: actions/checkout@v2
@@ -33,8 +35,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: '${{ steps.get_version.outputs.VERSION }}'
-          release_name: '${{ steps.pkg.outputs.package_name }} ${{ steps.get_version.outputs.VERSION }}'
+          tag_name: '${{ steps.get_version.outputs.version }}'
+          release_name: '${{ steps.pkg.outputs.package_name }} ${{ steps.get_version.outputs.version }}'
           body: 'See the assets to download this version and install.'
           draft: true
           prerelease: false
@@ -50,7 +52,8 @@ jobs:
     steps:
       - name: Output RELEASE_UPLOAD_ID
         run: |
-         echo ${{ needs.pkg.outputs.package_name }}
+          echo ${{ needs.create-release.outputs.PACKAGE_NAME }}
+          echo ${{ needs.create-release.outputs.VERSION }}
 
       - name: Checkout repository
         uses: actions/checkout@v3
