@@ -70,7 +70,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'pnpm' # Set this to npm, yarn or pnpm.
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -110,7 +109,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'pnpm' # Set this to npm, yarn or pnpm.
 
       - name: Install pnpm
         run: npm install -g pnpm
