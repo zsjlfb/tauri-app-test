@@ -73,8 +73,15 @@ jobs:
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
-          node-version: 'lts/*'
+          node-version: 18
           cache: 'pnpm' # Set this to npm, yarn or pnpm.
+
+      - name: Echo node|npm|pnpm version
+        run: |
+          echo node -v
+          echo npm -v
+          echo pnpm -v
+        shell: bash
 
       - name: Install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
@@ -107,8 +114,18 @@ jobs:
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
-          node-version: 'lts/*'
+          node-version: 18
           cache: 'pnpm' # Set this to npm, yarn or pnpm.
+
+      - name: Echo node|npm|pnpm version
+        run: |
+          echo node -v
+          echo npm -v
+          echo pnpm -v
+        shell: bash
+
+      - name: Install frontend dependencies
+        run: pnpm install # Change this to npm, yarn or pnpm.
 
       - name: Run updater
         uses: actions/checkout@v2
