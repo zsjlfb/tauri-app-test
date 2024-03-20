@@ -76,18 +76,18 @@ jobs:
       - name: Install rsw
         run: cargo install rsw
 
-      - name: Get pnpm cache directory path
-        id: pnpm-cache-dir-path
-        run: echo "::set-output name=dir::$(pnpm config get cacheFolder)"
-
-      - name: pnpm cache
-        uses: actions/cache@v2
-        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+#      - name: Get pnpm cache directory path
+#        id: pnpm-cache-dir-path
+#        run: echo "::set-output name=dir::$(pnpm config get cacheFolder)"
+#
+#      - name: pnpm cache
+#        uses: actions/cache@v2
+#        id: pnpm-cache # use this to check for `cache-hit` (`steps.pnpm-cache.outputs.cache-hit != 'true'`)
+#        with:
+#          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+#          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-pnpm-
 
       - name: Install app dependencies and build it
         run: pnpm install
