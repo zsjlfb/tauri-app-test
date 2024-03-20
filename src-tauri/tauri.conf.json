@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "tauri-app",
-    "version": "../package.json"
+    "version": "1.2.15"
   },
   "tauri": {
     "allowlist": {
