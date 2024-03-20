@@ -21,12 +21,12 @@ jobs:
         shell: bash
         run: |
           echo "using version tag ${GITHUB_REF:10}"
-          echo ::set-output name=version::"${GITHUB_REF:10}"
+          echo "name=version" >> ${GITHUB_REF:10}
 
       - name: Get name from package.json
         id: pkg
         run: |
-          echo "::set-output name=package_name::$(node -p "require('./package.json').name")"
+          echo "name=package_name" >> $(node -p "require('./package.json').name")
         shell: bash
 
       - name: Create Release
