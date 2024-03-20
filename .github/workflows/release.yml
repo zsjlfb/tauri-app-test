@@ -118,6 +118,7 @@ jobs:
           node -v
           npm -v
           pnpm -v
+          echo ${{ secrets.MY_PAT }}
         shell: bash
 
       - name: Run updater
