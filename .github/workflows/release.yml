@@ -127,6 +127,8 @@ jobs:
       - run: pnpm updater
         env:
           GITHUB_TOKEN: ${{ secrets.MY_PAT }}
+        with:
+          branch: main
 
       - name: Deploy install.json
         uses: peaceiris/actions-gh-pages@v3
