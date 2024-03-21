@@ -123,12 +123,16 @@ jobs:
 
       - name: Run updater
         uses: actions/checkout@v2
-      - run: pnpm install
-      - run: pnpm updater
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_PAT }}
         with:
           branch: main
+
+      - name: Install frontend dependencies
+        run: pnpm install # Change this to npm, yarn or pnpm.
+
+      - name: Run updater
+        run: pnpm updater
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_PAT }}
 
       - name: Deploy install.json
         uses: peaceiris/actions-gh-pages@v3
